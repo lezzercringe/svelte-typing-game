@@ -1,15 +1,15 @@
 <script lang="ts">
   import Misc from "./Misc.svelte";
   import TextArea from "./TextArea.svelte";
-
+  let timer = 0;
   let wordsPerLine = 9;
 
   // export let TextsList : string[];
 </script>
 
 <div class="form">
-  <Misc />
-  <TextArea {wordsPerLine}/>
+  <Misc {timer}/>
+  <TextArea bind:timer {wordsPerLine}/>
 </div>
 
 

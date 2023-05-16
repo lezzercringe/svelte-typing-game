@@ -1,9 +1,13 @@
+<script lang="ts">
+  export let timer : number;
+</script>
+
 <div class="misc">
   <span>
     choose a text
   </span>
   <span>
-    5:00
+    {60 - timer}
   </span>
 </div>
 <style lang="scss">

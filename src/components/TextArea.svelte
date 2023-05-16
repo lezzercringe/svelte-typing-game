@@ -3,14 +3,26 @@
   import { textToArray } from "../misc/textToHtml";
   import { activeText } from "../store/textInputStore";
   import { keyDownHandler } from "../misc/keyDownHandler";
+  import { onDestroy } from "svelte";
   let inputedText : string = "";
   let isError: boolean = false;
+  let timerId: number;
   $: textArray = textToArray(inputedText)
+  
+  $: if(inputedText.length === 1) {
+    timerId = setInterval(() => timer += 1, 1000)
+  }
 
   const onKeyDown = (e : KeyboardEvent) => {
     [inputedText, isError] = keyDownHandler(inputedText, e.key)
   }
   export let wordsPerLine : number;
+  export let timer : number;
+
+  onDestroy(() => {
+    clearInterval(timerId)
+  })
+
 </script>
 
 <div class="textarea">
