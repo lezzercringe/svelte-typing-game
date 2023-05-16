@@ -4,11 +4,12 @@
   import { activeText } from "../store/textInputStore";
   import { keyDownHandler } from "../misc/keyDownHandler";
   import { onDestroy } from "svelte";
+  
   let inputedText : string = "";
   let isError: boolean = false;
   let timerId: number;
   $: textArray = textToArray(inputedText)
-  
+
   $: if(inputedText.length === 1) {
     timerId = setInterval(() => timer += 1, 1000)
   }
@@ -33,12 +34,15 @@
     {/if}
     <span class={isError && index === textArray.length - 1 ? "mistake" : ""}>{word}</span>
   {/each}
+  {#key textArray}
+  <div class="beam" ></div>
+  {/key}
   <div class="placeholder">
     {#each textToArray($activeText) as word, index}
       {#if index % wordsPerLine === 0}
         <br/>
       {/if}
-      <span>{word}</span>
+      <span> {word}</span>
   {/each}
   </div>
 </div>
@@ -52,6 +56,21 @@
     width: 100%;
     height: 100px;
     position: relative;
+  }
+
+  span {
+      white-space: pre;
+    }
+
+  .beam {
+    position: absolute;
+    padding-top: 2px;
+    height: 20px;
+    width: 1px;
+    background: #fff;
+    display: inline-block;
+    transition: all .3s;
+    transform: translate( -5px, 0);
   }
 
   .placeholder {
